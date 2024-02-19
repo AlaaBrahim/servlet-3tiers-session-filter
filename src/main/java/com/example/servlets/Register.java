@@ -2,8 +2,6 @@ package com.example.servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.database.DB;
 import com.example.dao.UserDao;
 import com.example.models.User;
 
