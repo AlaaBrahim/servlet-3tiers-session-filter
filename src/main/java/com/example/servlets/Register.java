@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,13 +21,8 @@ public class Register extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        try {
-            connection = DB.connect();
-            System.out.println("Connected to the PostgreSQL database.");
-        } catch (SQLException e) {
-            System.out.println("Connection failure.");
-            e.printStackTrace();
-        }
+        ServletContext context = getServletContext();
+        connection = (Connection) context.getAttribute("DBConnection");
         super.init();
     }
 
