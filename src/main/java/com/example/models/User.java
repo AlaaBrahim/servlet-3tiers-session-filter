@@ -2,23 +2,13 @@ package com.example.models;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class User {
+public class User implements java.io.Serializable {
     private int id;
     private String name;
     private String email;
     private String password;
 
     public User() {
-    }
-
-    public User(int id, String name, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        if (password.startsWith("$2a$"))
-            this.password = password;
-        else
-            this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
     public int getId() {

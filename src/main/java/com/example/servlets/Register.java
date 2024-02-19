@@ -31,7 +31,10 @@ public class Register extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        User user = new User(0, name, email, password);
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
         boolean isAdded = new UserDao(connection).addUser(user);
         if (isAdded)
             response.sendRedirect("login.jsp");
