@@ -2,10 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.models.User" %>
 
-<%
-    // Retrieve the list of users from the request attribute
-    List<User> users = (List<User>) request.getAttribute("users");
-%>
+<jsp:useBean id = "users" class="java.util.ArrayList"  scope="request"/>
+
 
 <html>
 <head>
@@ -32,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-            <% for (User user : users) { %>
+            <% for (User user : (List<User>) users) { %>
                 <tr>
                     <td><%= user.getId() %></td>
                     <td><%= user.getName() %></td>

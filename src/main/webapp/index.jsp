@@ -1,3 +1,5 @@
+<%@ page import="com.example.models.User" %>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -33,7 +35,9 @@
         <% if (session.getAttribute("user") == null) { %>
           <h2>Welcome to Alaa</h2>
       <% } else { %>
-          <h2>Welcome <%= session.getAttribute("user") %></h2>
+				<jsp:useBean id = "user" class = "com.example.models.User" scope="request"/>
+						
+			<h2>Welcome <%= user.getName() %></h2>
       <% } %>
 
         <p>

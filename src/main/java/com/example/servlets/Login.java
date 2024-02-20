@@ -34,7 +34,8 @@ public class Login extends HttpServlet {
         response.sendRedirect("login.jsp");
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         User user = new UserDao(connection).getUserByEmail(email);
@@ -52,7 +53,9 @@ public class Login extends HttpServlet {
             newSession.setMaxInactiveInterval(5 * 60);
             newSession.setAttribute("user", user.getName());
 
-            response.sendRedirect("/");
+            request.setAttribute("user", user);
+
+            request.getRequestDispatcher("/").forward(request, response);
         } else {
             response.sendRedirect("login.jsp");
         }
