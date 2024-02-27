@@ -37,7 +37,7 @@
       <% } else { %>
 				<jsp:useBean id = "user" class = "com.example.models.User" scope="request"/>
 						
-			<h2>Welcome <%= user.getName() %></h2>
+			<h2>Welcome <jsp:getProperty name="user" property="name" /></h2>
       <% } %>
 
         <p>
