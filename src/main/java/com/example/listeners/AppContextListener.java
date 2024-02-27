@@ -1,4 +1,4 @@
-package com.example.listners;
+package com.example.listeners;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -12,6 +12,8 @@ import com.example.database.DB;
 @WebListener
 public class AppContextListener implements ServletContextListener {
 
+    public static ServletContext context;
+
     @Override
     public void contextInitialized(javax.servlet.ServletContextEvent sce) {
         Connection connection = null;
@@ -23,7 +25,7 @@ public class AppContextListener implements ServletContextListener {
             System.out.println("Connection failure.");
             e.printStackTrace();
         }
-        ServletContext context = sce.getServletContext();
+        context = sce.getServletContext();
         context.setAttribute("DBConnection", connection);
     }
 

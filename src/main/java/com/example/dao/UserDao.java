@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.example.models.User;
 
 public class UserDao {
@@ -12,6 +14,10 @@ public class UserDao {
 
     public UserDao(Connection connection) {
         this.connection = connection;
+    }
+
+    public UserDao() {
+        this.connection = (Connection) com.example.listeners.AppContextListener.context.getAttribute("DBConnection");
     }
 
     public boolean addUser(User user) {
@@ -123,6 +129,13 @@ public class UserDao {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public User validateUser(String email, String password) {
+        User user = getUserByEmail(email);
+        if (user != null && BCrypt.checkpw(password, user.getPassword()))
+            return user;
+        return null;
     }
 
 }

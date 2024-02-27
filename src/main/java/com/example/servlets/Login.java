@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 import com.example.dao.UserDao;
 import com.example.models.User;
 
@@ -38,10 +36,9 @@ public class Login extends HttpServlet {
             throws IOException, ServletException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        User user = new UserDao(connection).getUserByEmail(email);
-        System.out.println(email);
-        System.out.println(user);
-        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
+        UserDao userDao = new UserDao(connection);
+        User user = userDao.validateUser(email, password);
+        if (user != null) {
             HttpSession oldSession = request.getSession(false);
             if (oldSession != null) {
                 oldSession.invalidate();

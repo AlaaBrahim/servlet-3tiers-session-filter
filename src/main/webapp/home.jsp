@@ -1,8 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.models.User" %>
+<%@ page import="com.example.dao.UserDao" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<jsp:useBean id = "users" class="java.util.ArrayList"  scope="request"/>
+<jsp:useBean id = "user" class="com.example.models.User"/>
+
+<%
+    UserDao userDao = new UserDao();
+		List<User> users = userDao.getAllUsers();
+%>
 
 
 <html>
@@ -30,12 +37,22 @@
             </tr>
         </thead>
         <tbody>
-            <% for (User user : (List<User>) users) { %>
-                <tr>
-                    <td><%= user.getId() %></td>
-                    <td><%= user.getName() %></td>
-                    <td><%= user.getEmail() %></td>
-                </tr>
+            <% for (User u : (List<User>) users) { %>
+              <jsp:setProperty name="user" property="id" value="<%= u.getId() %>" />
+              <jsp:setProperty name="user" property="name" value="<%= u.getName() %>" />
+              <jsp:setProperty name="user" property="email" value="<%= u.getEmail() %>" />
+
+              <tr>
+                <td>
+                  <jsp:getProperty name="user" property="id" />
+                </td>
+                <td>
+                  <jsp:getProperty name="user" property="name" />
+                </td>
+                <td>
+                  <jsp:getProperty name="user" property="email" />
+                </td>
+              </tr>
             <% } %>
         </tbody>
     </table>
